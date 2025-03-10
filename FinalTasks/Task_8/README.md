@@ -52,10 +52,19 @@
 4. **Корректность.** Данные нельзя редактировать, файл нельзя обрезать. Результаты аналитики и SQL скрипта должны быть правильными.
 
 # Выполнение работы:
-1. Скачиваем и подкладываем нужные файлы и документы:
+1. Создаем дерриктории:
+
+* config
+* dags
+* data
+* drivers
+* logs
+* plugins
+
+2. Скачиваем и подкладываем нужные файлы и документы:
 * [Ссылка на jdbc драйвер](https://disk.yandex.ru/d/RLGROjsLtaSyZw) - .jar файл кладем в [drivers](drivers)
 * [Ссылка на csv файл](https://disk.yandex.ru/d/bhf2M8C557AFVw) - .csv файл кладем в [data](data)
-
-2. Собираем образ из [Dockerfile](Dockerfile) командой `docker build - t airflow-with-java-spark`
-3. Запускаем [docker-compose.yml](docker-compose.yml) командой `docker compose up`
+* Файл [main.py](main.py) кладем в [dags](dags)
+3. Собираем образ из [Dockerfile](Dockerfile) командой `docker build - t airflow-with-java-spark`
+4. Запускаем [docker-compose.yml](docker-compose.yml) командой `docker compose up`
 
