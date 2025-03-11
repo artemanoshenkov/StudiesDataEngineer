@@ -83,30 +83,30 @@ def query_execution() -> None:
 
         # Cредний и медианный год постройки зданий
         avg_year = df.agg(F.avg("maintenance_year").alias("average_year"))
-        # Создание таблицы avg_year
+
         creating_data_table("avg_year", avg_year.dtypes)
-        # Запись данных в таблицу avg_year
+
         avg_year.write.jdbc(url=url, table="avg_year", mode="append", properties=properties)
 
         median_year = df.agg(F.median("maintenance_year").alias("median_year"))
-        # Создание таблицы median_year
+
         creating_data_table("median_year", median_year.dtypes)
-        # Запись данных в таблицу median_year
+
         median_year.write.jdbc(url=url, table="median_year", mode="append", properties=properties)
 
         # топ-10 областей и городов с наибольшим количеством объектов
         top_regions = df.groupBy("region").agg(F.count("description").alias("count_object")).orderBy(
             F.col("count_object").desc()).limit(10)
-        # Создание таблицы top_regions
+
         creating_data_table("top_regions", top_regions.dtypes)
-        # Запись данных в таблицу top_regions
+
         top_regions.write.jdbc(url=url, table="top_regions", mode="append", properties=properties)
 
         top_cities = df.groupBy("locality_name").agg(F.count("description").alias("count_object")).orderBy(
             F.col("count_object").desc()).limit(10)
-        # Создание таблицы top_cities
+
         creating_data_table("top_cities", top_cities.dtypes)
-        # Запись данных в таблицу top_cities
+
         top_cities.write.jdbc(url=url, table="top_cities", mode="append", properties=properties)
 
         # Здания с максимальной и минимальной площадью в рамках каждой области
@@ -114,18 +114,18 @@ def query_execution() -> None:
             F.max("square").alias("max_square"),
             F.min("square").alias("min_square")
         )
-        # Создание таблицы buildings_max_min
+
         creating_data_table("buildings_max_min", buildings_max_min.dtypes)
-        # Запись данных в таблицу buildings_max_min
+
         buildings_max_min.write.jdbc(url=url, table="buildings_max_min", mode="append", properties=properties)
 
         # Количество зданий по десятилетиям
         buildings_with_decade = df.withColumn("decade", (F.col("maintenance_year") / 10).cast("int") * 10)
         building_in_yer = buildings_with_decade.groupBy("decade").agg(
             F.count("description").alias("count_description"))
-        # Создание таблицы building_in_yer
+
         creating_data_table("building_in_yer", building_in_yer.dtypes)
-        # Запись данных в таблицу building_in_yer
+
         building_in_yer.write.jdbc(url=url, table="building_in_yer", mode="append", properties=properties)
     except Exception as error:
         print(f"Возникла ошибка: {error}")
@@ -147,17 +147,8 @@ properties = {
     "driver": "com.clickhouse.jdbc.ClickHouseDriver"
 }
 
-# return spark, url, properties
-
-
-# def initialization_clickhouse_client() -> Client:
-#     """
-#     :return: Client подключенный к db clickhouse
-#     """
 # Настройка подключения к clickhouse
 client = Client(host="clickhouse_user", port="9000")
-
-# return client
 
 with DAG(
         dag_id="main",
