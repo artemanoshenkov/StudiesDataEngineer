@@ -1,4 +1,13 @@
 # Итоговое задание №8
+## Содержание
+
+1. [Условия задания](#title1)
+2. [Порядок выполнения](#title2)
+3. [Проверка выполнения](#title3)
+4. [Контакты](#title4)
+
+
+## <a id="title1">Условия задания</a>
 Есть csv файл, расположенный по [ссылке](https://disk.yandex.ru/d/bhf2M8C557AFVw). Скачивайте. Размер распакованного файла около 300 Мб. Количество строк - 590708 строк.
 
 ### Данные в файле:
@@ -51,7 +60,7 @@
 
 4. **Корректность.** Данные нельзя редактировать, файл нельзя обрезать. Результаты аналитики и SQL скрипта должны быть правильными.
 
-# Выполнение работы:
+## <a id="title2">Порядок выполнения</a>
 1. Создаем дерриктории:
 
 * config
@@ -65,6 +74,56 @@
 * [Ссылка на jdbc драйвер](https://disk.yandex.ru/d/RLGROjsLtaSyZw) - .jar файл кладем в [drivers](drivers)
 * [Ссылка на csv файл](https://disk.yandex.ru/d/bhf2M8C557AFVw) - .csv файл кладем в [data](data)
 * Файл [main.py](main.py) кладем в [dags](dags)
-3. Собираем образ из [Dockerfile](Dockerfile) командой `docker build - t airflow-with-java-spark`
-4. Запускаем [docker-compose.yml](docker-compose.yml) командой `docker compose up`
 
+
+![***Пример***](images/image.png)
+
+3. Собираем образ из [Dockerfile](Dockerfile) командой 
+
+`docker build - t airflow-with-java-spark`
+
+4. Запускаем [docker-compose.yml](docker-compose.yml) командой 
+
+`docker compose up`
+
+## <a id="title3">Проверка выполнения</a>
+1. Переходим по ссылке: http://0.0.0.0:8080/home
+
+* логин: airflow
+* пароль: airflow
+
+2. Наблюдаем DAG под названием "main":
+![](images/image1.png)
+3. Жмем на запуск:  
+![](images/image2.png)  
+4. Нажатием на сам DAG "main" и видим всю информацию о нем (Graph, Logs ...):
+![](images/image3.png)
+Видим что DAG уже выполнен (темно-зеленый цвет)
+5. Переходим в ссылку Logs и наблюдаем что все прошло успешно:
+![](images/image4.png)
+![](images/image5.png)
+6. Теперь проверим саму db и наполненные таблицы (я использую DBeaver):
+   * Подключаемся к db ClickHouse и видим наши таблицы:  
+![](images/image6.png)
+   * Проверим наличие данных в таблицах:
+     - Обработанные данные из csv файла:
+     ![](images/image7.png)
+     - Средний год постройки зданий:  
+     ![](images/image8.png)
+     - Медиальный год постройки зданий:  
+     ![](images/image11.png)
+     - Топ-10 областей с наибольшим количеством объектов:  
+     ![](images/image13.png)
+     - топ-10 городов с наибольшим количеством объектов:  
+     ![](images/image12.png)
+     - Здания с максимальной и минимальной площадью в рамках каждой области:  
+     ![](images/image9.png)
+     - Количество зданий по десятилетиям:  
+     ![](images/image9.png)
+
+## <a id="title4">Контакты</a>
+* email: [goodboy873@yandex.ru](goodboy873@yandex.ru)
+* Telegram: [good_boy378](https://t.me/good_boy378)
+
+
+   
