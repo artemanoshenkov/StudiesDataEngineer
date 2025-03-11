@@ -122,7 +122,7 @@
      ![](images/image9.png)
 
 ## <a id="title4">Контакты</a>
-* email: [goodboy873@yandex.ru](goodboy873@yandex.ru)
+* email: [goodboy873@yandex.ru](mailto:goodboy873@yandex.ru)
 * Telegram: [good_boy378](https://t.me/good_boy378)
 
 
